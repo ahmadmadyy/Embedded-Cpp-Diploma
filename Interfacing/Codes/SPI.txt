@@ -1,0 +1,67 @@
+#include "main.h"
+
+void SPI_Init(void)
+{
+  // Enable GPIOA and SPI1 clocks
+  RCC->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_SPI1EN;
+
+  // Configure PA5 (SCK), PA6 (MISO), PA7 (MOSI) as Alternate Function Push Pull
+  GPIOA->CRL &= ~(GPIO_CRL_CNF5 | GPIO_CRL_CNF6 | GPIO_CRL_CNF7 | GPIO_CRL_MODE5 | GPIO_CRL_MODE6 | GPIO_CRL_MODE7);
+  GPIOA->CRL |= (GPIO_CRL_CNF5_1 | GPIO_CRL_CNF6_0 | GPIO_CRL_CNF7_1 | GPIO_CRL_MODE5 | GPIO_CRL_MODE6 | GPIO_CRL_MODE7);
+
+  // Configure SPI1
+  SPI1->CR1 &= ~SPI_CR1_SPE; // Disable SPI1
+
+  SPI1->CR1 = 0;
+  SPI1->CR1 |= (SPI_CR1_MSTR | SPI_CR1_BR_2 | SPI_CR1_BR_1);
+  // Master, fPCLK/32 (assuming default clock configuration)
+
+  SPI1->CR1 |= SPI_CR1_SSM | SPI_CR1_SSI;
+  // Enable software slave management, master mode
+
+  SPI1->CR2 |= SPI_CR2_SSOE; // Enable SS output
+  SPI1->CR1 |= SPI_CR1_SPE; // Enable SPI1
+}
+
+void SPI_Transmit(uint8_t data)
+{
+  while (!(SPI1->SR & SPI_SR_TXE)); // Wait until transmit buffer is empty
+  SPI1->DR = data;
+}
+
+uint8_t SPI_Receive(void)
+{
+  while (!(SPI1->SR & SPI_SR_RXNE)); // Wait until receive buffer is not empty
+  return SPI1->DR;
+}
+
+void SPI_TransmitReceive(uint8_t *txData, uint8_t *rxData, uint16_t size)
+{
+  for (uint16_t i = 0; i < size; ++i) {
+    SPI_Transmit(txData[i]);
+    rxData[i] = SPI_Receive();
+  }
+}
+
+int main(void) {
+
+  SPI_Init(); // Initialize SPI
+
+  // Example usage
+  uint8_t txData[] = {0x01, 0x02, 0x03, 0x04}; // Example data to transmit
+  uint8_t rxData[4]; // Buffer for received data
+
+  while (1)
+  {
+    // Example of transmitting and receiving data
+    SPI_TransmitReceive(txData, rxData, sizeof(txData));
+
+    // Add your application code here
+
+    for (int i = 0; i < sizeof(rxData); ++i)
+    {
+    	// Process received data
+    }
+  }
+}
+

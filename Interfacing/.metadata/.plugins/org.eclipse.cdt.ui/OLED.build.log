@@ -1,0 +1,19 @@
+19:24:50 **** Incremental Build of configuration Debug for project OLED ****
+make -j8 all 
+arm-none-eabi-g++ -o "OLED.elf" @"objects.list"   -mcpu=cortex-m3 -T"E:\Embedded\Modern C++\Interfacing\OLED\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="OLED.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: OLED.elf
+ 
+arm-none-eabi-size   OLED.elf 
+arm-none-eabi-objdump -h -S  OLED.elf  > "OLED.list"
+arm-none-eabi-objcopy  -O ihex  OLED.elf  "OLED.hex"
+   text	   data	    bss	    dec	    hex	filename
+  18240	     36	   2684	  20960	   51e0	OLED.elf
+Finished building: default.size.stdout
+ 
+Finished building: OLED.list
+ 
+Finished building: OLED.hex
+ 
+
+19:24:51 Build Finished. 0 errors, 0 warnings. (took 1s.741ms)
+

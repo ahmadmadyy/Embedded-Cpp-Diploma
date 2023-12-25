@@ -1,0 +1,24 @@
+23:40:37 **** Incremental Build of configuration Debug for project Servo ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/main.cpp" -mcpu=cortex-m3 -std=gnu++14 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+In file included from ../Core/Src/main.cpp:26:
+../Core/Inc/timer_driver.h:18:9: warning: 'typedef' was ignored in this declaration
+   18 |         typedef enum TimerInstance : uint32_t
+      |         ^~~~~~~
+arm-none-eabi-g++ -o "Servo.elf" @"objects.list"   -mcpu=cortex-m3 -T"E:\Embedded\Modern C++\Interfacing\Servo\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Servo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Servo.elf
+ 
+arm-none-eabi-size   Servo.elf 
+arm-none-eabi-objdump -h -S  Servo.elf  > "Servo.list"
+arm-none-eabi-objcopy  -O ihex  Servo.elf  "Servo.hex"
+   text	   data	    bss	    dec	    hex	filename
+   1196	     12	   1572	   2780	    adc	Servo.elf
+Finished building: default.size.stdout
+Finished building: Servo.list
+Finished building: Servo.hex
+ 
+ 
+ 
+
+23:40:38 Build Finished. 0 errors, 1 warnings. (took 1s.41ms)
+

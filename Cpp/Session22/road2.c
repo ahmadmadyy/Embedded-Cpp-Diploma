@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Comparison function for qsort
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+long getMinCost(int crew_id_count, int* crew_id, int job_id_count, int* job_id) 
+{
+    long totalDistance = 0;
+    long min=0;
+    long array[crew_id_count];
+    for(int i=0;i<crew_id_count;i++)
+    {
+        min+=crew_id[i];
+    }
+    long save = min;
+    int flag = 0;
+    int index[5];
+    for(int i=0;i<crew_id_count;i++)
+    {
+        totalDistance = 0;
+        min=save;
+        for(int j=0;j<job_id_count;j++)
+        {
+            totalDistance=abs((long)crew_id[i]-job_id[j]);
+            if(min>totalDistance)
+            {
+                min = totalDistance;
+                job_id[j]=1000;
+            }
+        }
+
+        array[i] = min;
+        printf("rws: %ld\n", array[i]);
+        //printf("rws: %ld\n", index);
+    }
+    printf("hi\n");
+    totalDistance = 0;
+    for(int i=0;i<crew_id_count;i++)
+    {
+        totalDistance+=array[i];
+    }
+    return totalDistance;
+}
+
+int main() {
+    int crew_id_count=5, job_id_count=5;
+
+    // printf("Enter the number of crews: ");
+    // scanf("%d", &crew_id_count);
+
+    int crew_id[] = {5,3,1,4,6};
+    // printf("Enter the positions of crews: ");
+    // for (int i = 0; i < crew_id_count; i++) {
+    //     scanf("%d", &crew_id[i]);
+    // }
+
+    // printf("Enter the number of repair points: ");
+    // scanf("%d", &job_id_count);
+
+    int job_id[] = {9,8,3,15,1};
+    // printf("Enter the positions of repair points: ");
+    // for (int i = 0; i < job_id_count; i++) {
+    //     scanf("%d", &job_id[i]);
+    // }
+
+    long result = getMinCost(crew_id_count, crew_id, job_id_count, job_id);
+    printf("Minimum total distance traveled: %ld\n", result);
+
+    return 0;
+}

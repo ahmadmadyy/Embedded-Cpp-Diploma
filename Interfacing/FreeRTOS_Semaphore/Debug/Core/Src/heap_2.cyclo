@@ -1,0 +1,5 @@
+../Core/Src/heap_2.c:120:8:pvPortMalloc	12
+../Core/Src/heap_2.c:224:6:vPortFree	3
+../Core/Src/heap_2.c:251:8:xPortGetFreeHeapSize	1
+../Core/Src/heap_2.c:257:6:vPortInitialiseBlocks	1
+../Core/Src/heap_2.c:263:13:prvHeapInit	1

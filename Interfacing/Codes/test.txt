@@ -1,0 +1,66 @@
+
+#include "main.h"
+
+constexpr uint8_t RCC_IOPA_BIT 		= 2;
+constexpr uint8_t RCC_IOPB_BIT 		= 3;
+constexpr uint8_t LED_PIN_NUMBER 	= 1;
+constexpr uint8_t BTN_PIN_NUM 		= 4;
+
+void RCC_APB2_Clock_Enable(bool enabled, uint8_t pinNumber)
+{
+	if(enabled)
+	{
+		RCC->APB2ENR |= 1<<pinNumber;
+	}
+	else
+	{
+		RCC->APB2ENR &= ~(1<<pinNumber);
+	}
+}
+
+class LED
+{
+	public:
+	LED(GPIO_TypeDef* GPIOPort, uint8_t pinNum) : LEDPort(GPIOPort),pinNumber(pinNum)
+	{
+		if(pinNum<8)
+		{
+			LEDPort->CRL = (3 << 4 * LED_PIN_NUMBER); //configuration for LED
+		}
+		else if(pinNum>=8 && pinNum<16)
+		{
+			LEDPort->CRH = (3 << 4 * (LED_PIN_NUMBER%8)); //configuration for LED
+			LEDPort->ODR = 0x0000;
+		}
+	}
+		
+	private:
+		GPIO_TypeDef* LEDPort;
+		uint8_t pinNumber;
+};
+
+int main(void)
+{
+	GPIOB->CRL = (4 << 4 * BTN_PIN_NUM); //configuration for BUTTON
+	
+	RCC_APB2_Clock_Enable(true,RCC_IOPA_BIT);
+	RCC_APB2_Clock_Enable(true,RCC_IOPB_BIT);
+	
+	LED led(GPIOA,LED_PIN_NUMBER);
+
+  while (1)
+  {
+	  if (!(GPIOB->IDR & (1 << BTN_PIN_NUM)))
+		{
+		  GPIOA->ODR = (1<<LED_PIN_NUMBER);
+		  for(int i=0;i<1000000;i++);
+		}
+	  else
+		{
+		  GPIOA->ODR &= ~(1<<LED_PIN_NUMBER);
+		  for(int i=0;i<1000000;i++);
+		}
+  }
+}
+
+

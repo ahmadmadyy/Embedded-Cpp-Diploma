@@ -1,0 +1,11 @@
+../Core/Src/port.c:176:15:pxPortInitialiseStack	1
+../Core/Src/port.c:196:13:prvTaskExitError	2
+../Core/Src/port.c:222:6:SVC_Handler	1
+../Core/Src/port.c:242:13:prvPortStartFirstTask	1
+../Core/Src/port.c:263:12:xPortStartScheduler	1
+../Core/Src/port.c:360:6:vPortEndScheduler	1
+../Core/Src/port.c:368:6:vPortEnterCritical	1
+../Core/Src/port.c:385:6:vPortExitCritical	2
+../Core/Src/port.c:397:6:PendSV_Handler	1
+../Core/Src/port.c:434:6:SysTick_Handler	2
+../Core/Src/port.c:628:32:vPortSetupTimerInterrupt	1

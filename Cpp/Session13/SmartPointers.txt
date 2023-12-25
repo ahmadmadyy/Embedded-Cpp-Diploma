@@ -1,0 +1,21 @@
+
+Raw Pointers Problems:
+1. Memory Leak: When using new without delete [crash]
+2. Dangling Pointer: using a pointer that points to a deleted object [undefined behavior]
+3. double delete: [undefined behavior]
+
+
+Solution: Smart Pointers
+1. Unique Smart Pointers:
+    Helps in: 1. Creation of Objects
+            2. Automatic Deletion of Objects, delete after new
+            3. Ownership, can't be copied or assigned
+    Can only be moved: cuts the original connection and establishes a new connection, stealing.
+    Move performs static casting.
+
+2. 
+
+
+static keyword: static global variable and static function can only be used inside file
+extern can't be used, and moves the data from stack to the data section
+

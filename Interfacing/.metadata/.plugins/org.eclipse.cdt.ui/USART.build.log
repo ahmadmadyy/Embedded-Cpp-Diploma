@@ -1,0 +1,19 @@
+11:37:14 **** Incremental Build of configuration Debug for project USART ****
+make -j8 all 
+arm-none-eabi-gcc -o "USART.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Embedded\C++ ARM\Interfacing\USART\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="USART.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: USART.elf
+ 
+arm-none-eabi-size   USART.elf 
+arm-none-eabi-objdump -h -S  USART.elf  > "USART.list"
+arm-none-eabi-objcopy  -O ihex  USART.elf  "USART.hex"
+   text	   data	    bss	    dec	    hex	filename
+   1080	     12	   1572	   2664	    a68	USART.elf
+Finished building: default.size.stdout
+ 
+Finished building: USART.list
+ 
+Finished building: USART.hex
+ 
+
+11:37:16 Build Finished. 0 errors, 0 warnings. (took 2s.40ms)
+

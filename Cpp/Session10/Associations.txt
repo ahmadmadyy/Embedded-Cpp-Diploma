@@ -1,0 +1,37 @@
+
+Association: 
+    class Bar {};
+
+    class FOO 
+    {
+        void Bar(Bar bar);
+    }
+
+
+Aggregation: 
+    I have an object which I 've borrowed from someone else.
+    When Foo dies, Bar may live on.
+
+    class Bar {} ;
+
+    class Foo 
+    {
+        Bar bar;
+            Foo(const Bar& bar) 
+            {
+                bar = bar;
+            }
+    };
+
+
+Composition: 
+    I own an object and I an responsible for its lifetime.
+    When Foo dies, so does Bar
+
+    class Bar {};
+
+    class Foo 
+    {
+        private:
+            Bar *bar new Bar();
+    };
